@@ -13,11 +13,10 @@ const Login = () => {
             <input type="text" id="username" />
           </div>
           <div className="input-wrapper">
-            <label htmlFor="password">Password</label
-            ><input type="password" id="password" />
+            <label htmlFor="password">Password</label><input type="password" id="password" />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="re member-me" />
+            <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           <a href="#" className="sign-in-button">Sign In</a>
