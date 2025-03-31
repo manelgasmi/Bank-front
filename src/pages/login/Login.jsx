@@ -1,25 +1,63 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./login.scss"
+import userService from '../../services/userService';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/userSlice';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onLoginUser = async (e) => {
+    e.preventDefault();
+    let token = null;
+    // try {
+      const result = await userService.login(email, password);
+      token = result.data.body.token;
+      dispatch(loginUser({token: token}));
+
+    // } catch (error) {
+    //   alert(error.response.data.message);
+    // }
+  };
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
-        <form>
+        <form onSubmit={onLoginUser}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
+            <input
+              type="text"
+              id="username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="input-wrapper">
-            <label htmlFor="password">Password</label><input type="password" id="password" />
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div className="input-remember">
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <a href="#" className="sign-in-button">Sign In</a>
+          <button
+            className={
+              (!email || !password) ? "sign-in-button-disable" : "sign-in-button"
+            }
+            type="submit"
+            disabled={!email || !password}
+          >
+            Sign In
+          </button>
         </form>
       </section>
     </main>

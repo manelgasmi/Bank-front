@@ -46,3 +46,15 @@
   padding: 5px;
   font-size: 1.2rem;
 }
+
+.sign-in-button-disable {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  border-color: gray;
+  background-color: gray;
+  color: #fff;
+}
