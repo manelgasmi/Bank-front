@@ -8,8 +8,6 @@ export const userSlice = createSlice({
   },
   reducers: {
     loginUser: (state, action) => {
-      console.log(action);
-      
       state.token = action.payload.token;
       localStorage.setItem("token", action.payload.token);
     },
@@ -18,11 +16,15 @@ export const userSlice = createSlice({
       state.user = null;
       localStorage.removeItem("token");
     },
+    saveProfile: (state, action) => {
+      state.user = action.payload.user;
+    },
   },
 });
 export const {
   loginUser,
   logoutUser,
+  saveProfile,
 } = userSlice.actions;
 
 export default userSlice.reducer;

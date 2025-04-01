@@ -3,6 +3,7 @@ import "./login.scss"
 import userService from '../../services/userService';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../redux/userSlice';
+import { saveProfile } from '../../redux/userSlice';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -12,14 +13,18 @@ const Login = () => {
   const onLoginUser = async (e) => {
     e.preventDefault();
     let token = null;
-    // try {
-      const result = await userService.login(email, password);
-      token = result.data.body.token;
+    let user = null;
+    try {
+      const resultToken = await userService.login(email, password);
+      token = resultToken.data.body.token;
+      const resultUser =  await userService.getProfile(token);
+      user = resultUser.data.body;
       dispatch(loginUser({token: token}));
-
-    // } catch (error) {
-    //   alert(error.response.data.message);
-    // }
+      dispatch(saveProfile({user: user}));
+      
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   };
   return (
     <main className="main bg-dark">

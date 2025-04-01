@@ -8,14 +8,10 @@ const login = async (email, password) => {
   });
 };
 
-const getProfile = async () => {
-  try {
-    axios.post(API_BASE_URL + "/user/profile", null, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  } catch (error) {
-    console.error(error);
-  }
+const getProfile = async (token) => {
+  return await axios.post(API_BASE_URL + "/user/profile", null, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 };
 
 const updateProfile = async (user) => {
