@@ -1,11 +1,15 @@
 import React from 'react'
 import "./user.scss"
+import { useSelector } from 'react-redux';
 
 const User = () => {
+  const { user } = useSelector((state) => state.user);
+
   return (
+    user ? 
     <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br />Tony Jarvis!</h1>
+        <h1>Welcome back<br />{user.firstName} {user.lastName}!</h1>
         <button className="edit-button">Edit Name</button>
       </div>
       <h2 className="sr-only">Accounts</h2>
@@ -40,6 +44,8 @@ const User = () => {
         </div>
       </section>
     </main>
+    : <h2>Loading</h2>
+    
   )
 }
 

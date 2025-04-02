@@ -21,7 +21,7 @@ const Login = () => {
       user = resultUser.data.body;
       dispatch(loginUser({token: token}));
       dispatch(saveProfile({user: user}));
-      
+
     } catch (error) {
       alert(error.response.data.message);
     }
