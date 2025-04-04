@@ -1,16 +1,37 @@
-import React from 'react'
-import "./user.scss"
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import "./user.scss";
+import { useSelector } from "react-redux";
+import UserForm from "../../components/user-form/UserForm";
 
 const User = () => {
   const { user } = useSelector((state) => state.user);
+  const [showForm, setShowForm] = useState(false);
 
-  return (
-    user ? 
+  const handleEditUser = () => {
+    setShowForm(false);
+  }
+
+  const toggleUserForm = () => {
+    setShowForm(!showForm);
+  }
+  return user ? (
     <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br />{user.firstName} {user.lastName}!</h1>
-        <button className="edit-button">Edit Name</button>
+        <h1>
+          Welcome back
+          <br />
+          {user.firstName} {user.lastName}!
+        </h1>
+        <div style={{ display: showForm ? "block" : "none" }}>
+          <UserForm handleEditUser={handleEditUser} />
+        </div>
+        <button
+          style={{ display: !showForm ? "inline" : "none" }}
+          className="edit-button"
+          onClick={toggleUserForm}
+        >
+          Edit Name
+        </button>
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
@@ -44,9 +65,9 @@ const User = () => {
         </div>
       </section>
     </main>
-    : <h2>Loading</h2>
-    
-  )
-}
+  ) : (
+    <h2>Loading</h2>
+  );
+};
 
-export default User
+export default User;

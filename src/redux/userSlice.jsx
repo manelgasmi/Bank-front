@@ -7,7 +7,8 @@ export const userSlice = createSlice({
     user: null,
   },
   reducers: {
-    loginUser: (state, action) => {
+    setUser:  (state, action) => {
+      state.user = action.payload.user;
       state.token = action.payload.token;
       localStorage.setItem("token", action.payload.token);
     },
@@ -16,15 +17,11 @@ export const userSlice = createSlice({
       state.user = null;
       localStorage.removeItem("token");
     },
-    saveProfile: (state, action) => {
-      state.user = action.payload.user;
-    },
   },
 });
 export const {
-  loginUser,
+  setUser,
   logoutUser,
-  saveProfile,
 } = userSlice.actions;
 
 export default userSlice.reducer;

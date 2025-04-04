@@ -14,14 +14,10 @@ const getProfile = async (token) => {
   });
 };
 
-const updateProfile = async (user) => {
-  try {
-    axios.put(API_BASE_URL + "/user/profile", user, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  } catch (error) {
-    console.error(error);
-  }
+const updateProfile = async (token, user) => {
+  return await axios.put(API_BASE_URL + "/user/profile", user, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 };
 
 // Export all functions

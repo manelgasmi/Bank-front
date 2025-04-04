@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
-import "./login.scss"
-import userService from '../../services/userService';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../redux/userSlice';
-import { saveProfile } from '../../redux/userSlice';
+import React, { useState } from "react";
+import "./login.scss";
+import userService from "../../services/userService";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/userSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -15,13 +14,19 @@ const Login = () => {
     let token = null;
     let user = null;
     try {
+      // connexion de recupération du token
       const resultToken = await userService.login(email, password);
       token = resultToken.data.body.token;
-      const resultUser =  await userService.getProfile(token);
+      // Récupération des infos utilisateur
+      const resultUser = await userService.getProfile(token);
       user = resultUser.data.body;
-      dispatch(loginUser({token: token}));
-      dispatch(saveProfile({user: user}));
-
+      // enregistrer le token et le user dans le store
+      dispatch(
+        setUser({
+          token: token,
+          user: user,
+        })
+      );
     } catch (error) {
       alert(error.response.data.message);
     }
@@ -56,7 +61,7 @@ const Login = () => {
           </div>
           <button
             className={
-              (!email || !password) ? "sign-in-button-disable" : "sign-in-button"
+              !email || !password ? "sign-in-button-disable" : "sign-in-button"
             }
             type="submit"
             disabled={!email || !password}
@@ -66,7 +71,7 @@ const Login = () => {
         </form>
       </section>
     </main>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

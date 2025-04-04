@@ -6,23 +6,27 @@ import User from "../pages/user/User";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
-import userService from '../services/userService';
-import { loginUser, saveProfile } from "../redux/userSlice";
+import userService from "../services/userService";
+import { setUser } from "../redux/userSlice";
 
 const Navigation = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.user);
 
-  // when page is reloaded, we must update store by user informations 
+  // when page is reloaded, we must update store by user informations
   const refreshProfile = async () => {
     const tokenFromStorage = localStorage.getItem("token");
-    if(tokenFromStorage) {
-      dispatch(loginUser({token: tokenFromStorage}));
-      const resultUser =  await userService.getProfile(tokenFromStorage);
+    if (tokenFromStorage) {
+      const resultUser = await userService.getProfile(tokenFromStorage);
       const user = resultUser.data.body;
-      dispatch(saveProfile({user: user}));
+      dispatch(
+        setUser({
+          token: tokenFromStorage,
+          user: user,
+        })
+      );
     }
-  }
+  };
   useEffect(() => {
     refreshProfile();
   }, []);
