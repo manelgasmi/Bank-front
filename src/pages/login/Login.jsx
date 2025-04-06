@@ -8,23 +8,26 @@ const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   const onLoginUser = async (e) => {
     e.preventDefault();
     let token = null;
     let user = null;
+    
     try {
-      // connexion de recupération du token
+      // get token
       const resultToken = await userService.login(email, password);
       token = resultToken.data.body.token;
-      // Récupération des infos utilisateur
+      // get User infos
       const resultUser = await userService.getProfile(token);
       user = resultUser.data.body;
-      // enregistrer le token et le user dans le store
+      // save token and user in store
       dispatch(
         setUser({
           token: token,
           user: user,
+          rememberMe: rememberMe
         })
       );
     } catch (error) {
@@ -56,7 +59,12 @@ const Login = () => {
             />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+            <input
+              type="checkbox"
+              id="remember-me"
+              checked={rememberMe}
+              onChange={(e) => (setRememberMe(e.target.checked))}
+            />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           <button

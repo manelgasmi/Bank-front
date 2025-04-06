@@ -10,7 +10,9 @@ export const userSlice = createSlice({
     setUser:  (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
-      localStorage.setItem("token", action.payload.token);
+      if(action.payload.rememberMe) {
+        localStorage.setItem("token", action.payload.token);
+      }
     },
     logoutUser: (state) => {
       state.token = "";
