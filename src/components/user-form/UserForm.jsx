@@ -32,14 +32,6 @@ const UserForm = ({ handleEditUser }) => {
     handleEditUser();
   };
 
-  const onChangeFirstName = async (value) => {
-    setFirstName(value);
-  };
-
-  const onChangeLastName = async (value) => {
-    setLastName(value);
-  };
-
   useEffect(() => {
     if (user) {
       setFirstName(user.firstName);

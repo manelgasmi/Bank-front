@@ -28,7 +28,7 @@ const Header = () => {
             <Link className="main-nav-item" to="./user">
               <i className="fa fa-user-circle"></i> {user.firstName}
             </Link>
-            <div className="main-nav-item"  onClick={onLogout}>
+            <div className="main-nav-item" onClick={onLogout}>
               <i className="fa fa-sign-out"></i>
               Sign Out
             </div>
