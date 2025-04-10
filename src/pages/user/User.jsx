@@ -4,12 +4,16 @@ import { useSelector } from "react-redux";
 import UserForm from "../../components/user-form/UserForm";
 
 const User = () => {
+  // get user from store
   const { user } = useSelector((state) => state.user);
+  // State to toggle the visibility of the user form
   const [showForm, setShowForm] = useState(false);
 
+  // handle form submission and hide the form
   const handleEditUser = () => {
     setShowForm(false);
   }
+  // toggle the form visibility
   const toggleUserForm = () => {
     setShowForm(!showForm);
   }

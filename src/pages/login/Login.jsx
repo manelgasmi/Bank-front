@@ -9,7 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-
+ 
   const onLoginUser = async (e) => {
     e.preventDefault();
     let token = null;
@@ -22,7 +22,7 @@ const Login = () => {
       // get User infos
       const resultUser = await userService.getProfile(token);
       user = resultUser.data.body;
-      // save token and user in store
+      // save token, user and remember me in store
       dispatch(
         setUser({
           token: token,

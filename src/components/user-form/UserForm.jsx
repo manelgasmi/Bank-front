@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import userService from "../../services/userService";
 import "./userForm.scss";
 import { setUser } from "../../redux/userSlice";
+
 const UserForm = ({ handleEditUser }) => {
   const dispatch = useDispatch();
 
@@ -33,12 +34,12 @@ const UserForm = ({ handleEditUser }) => {
       alert(error.response.data.message);
     }
   };
-
+  // canceling the edit form
   const onCancel = async (e) => {
     e.preventDefault();
     handleEditUser();
   };
-
+  // Populate the form fields with the current user data when the component mounts
   useEffect(() => {
     if (user) {
       setFirstName(user.firstName);
@@ -47,6 +48,7 @@ const UserForm = ({ handleEditUser }) => {
   }, []);
 
   return (
+    // Render the form only if the user data is available
     user && (
       <section className="user-form-section">
         <form onSubmit={onSave}>

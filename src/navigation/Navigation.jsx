@@ -11,14 +11,17 @@ import { setUser } from "../redux/userSlice";
 
 const Navigation = () => {
   const dispatch = useDispatch();
+  // get token from store
   const { token } = useSelector((state) => state.user);
 
   // when page is reloaded, we must update store by user informations
   const refreshProfile = async () => {
+    // get token from local storage
     const tokenFromStorage = localStorage.getItem("token");
     if (tokenFromStorage) {
       const resultUser = await userService.getProfile(tokenFromStorage);
       const user = resultUser.data.body;
+      
       dispatch(
         setUser({
           token: tokenFromStorage,
@@ -27,6 +30,7 @@ const Navigation = () => {
       );
     }
   };
+  // refresh profile when the app is loaded
   useEffect(() => {
     refreshProfile();
   }, []);
