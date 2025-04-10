@@ -10,7 +10,6 @@ const User = () => {
   const handleEditUser = () => {
     setShowForm(false);
   }
-
   const toggleUserForm = () => {
     setShowForm(!showForm);
   }

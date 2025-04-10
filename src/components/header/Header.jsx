@@ -22,15 +22,15 @@ const Header = () => {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
+      <div className="main-nav-items">
         {user && (
           <>
             <Link className="main-nav-item" to="./user">
-              <i className="fa fa-user-circle"></i> {user.firstName}
+              <i className="fa fa-user-circle"></i> <span>{user.firstName}</span>
             </Link>
             <div className="main-nav-item" onClick={onLogout}>
               <i className="fa fa-sign-out"></i>
-              Sign Out
+              <span>Sign Out</span>
             </div>
           </>
         )}

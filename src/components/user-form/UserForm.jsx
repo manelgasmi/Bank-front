@@ -5,22 +5,29 @@ import "./userForm.scss";
 import { setUser } from "../../redux/userSlice";
 const UserForm = ({ handleEditUser }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+
+  // get token and user from store
+  const { token, user } = useSelector((state) => state.user);
+
+  // Local state to hold form input values
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+
+  // saving the updated user profile
   const onSave = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
       const updateResult = await userService.updateProfile(token, {
         firstName: firstName,
         lastName: lastName,
       });
       const updatedUser = updateResult.data.body;
+      // update redux store with the new user
       dispatch(setUser({
         token: token,
         user: updatedUser,
       }));
+      // call handleEditUser function from the parent (User.jsx) to exit edit form
       handleEditUser();
     } catch (error) {
       alert(error.response.data.message);
